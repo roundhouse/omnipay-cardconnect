@@ -1,0 +1,35 @@
+{
+    "name": "omnipay/cardconnect",
+    "type": "library",
+    "description": "Cardconnect driver for the Omnipay payment processing library",
+    "keywords": [
+        "dummy",
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/roundhouse/omnipay-cardconnect",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremy Bueler",
+            "email": "jeremy@roundhouseagency.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\Cardconnect\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~2.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
