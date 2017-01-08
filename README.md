@@ -13,7 +13,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "roundhouse/cardconnect": "~2.0"
+        "roundhouse/omnipay-cardconnect": "~1.0"
     }
 }
 ```

@@ -1,5 +1,5 @@
 {
-    "name": "omnipay/cardconnect",
+    "name": "roundhouse/omnipay-cardconnect",
     "type": "library",
     "description": "Cardconnect driver for the Omnipay payment processing library",
     "keywords": [
@@ -29,7 +29,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     }
 }
