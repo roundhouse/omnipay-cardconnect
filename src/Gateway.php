@@ -92,24 +92,24 @@ class Gateway extends AbstractGateway
          Setters
     ********************************************************************** 
     */
-    public function setMerchantId()
+    public function setMerchantId($value)
     {
-        return $this->setParameter('merchantId');
+        return $this->setParameter('merchantId', $value);
     }
 
-    public function setApiUsername()
+    public function setApiUsername($value)
     {
-        return $this->setParameter('apiUsername');
+        return $this->setParameter('apiUsername', $value);
     }
 
-    public function setPassword()
+    public function setPassword($value)
     {
-        return $this->setParameter('apiPassword');
+        return $this->setParameter('apiPassword', $value);
     }
 
-    public function setTestMode()
+    public function setTestMode($value)
     {
-        return $this->setParameter('testMode');
+        return $this->setParameter('testMode', $value);
     }
     
     /*
