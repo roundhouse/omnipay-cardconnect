@@ -55,18 +55,75 @@ use Omnipay\Common\AbstractGateway;
  */
 class Gateway extends AbstractGateway
 {
+    
     public function getName()
     {
         return 'Cardconnect';
     }
+    
+    /*
+     ★ ★ ★ Jeremy Bueler (buelerj) *************************************
+         Getters
+    ********************************************************************** 
+    */
+    
+    public function getMerchantId()
+    {
+        return $this->getParameter('merchantId');
+    }
 
+    public function getApiUsername()
+    {
+        return $this->getParameter('apiUsername');
+    }
+
+    public function getPassword()
+    {
+        return $this->getParameter('apiPassword');
+    }
+
+    public function getTestMode()
+    {
+        return $this->getParameter('testMode');
+    }
+
+    /*
+     ★ ★ ★ Jeremy Bueler (buelerj) *************************************
+         Setters
+    ********************************************************************** 
+    */
+    public function setMerchantId()
+    {
+        return $this->setParameter('merchantId');
+    }
+
+    public function setApiUsername()
+    {
+        return $this->setParameter('apiUsername');
+    }
+
+    public function setPassword()
+    {
+        return $this->setParameter('apiPassword');
+    }
+
+    public function setTestMode()
+    {
+        return $this->setParameter('testMode');
+    }
+    
+    /*
+     ★ ★ ★ Jeremy Bueler (buelerj) *************************************
+         
+    ********************************************************************** 
+    */
+    
     public function getDefaultParameters()
     {
         $params = array(
-          'username' => '',
-          'password' => '',
-          'apiKey' => '',
-          'apiUrl' => '',
+          'merchantId' => '',
+          'apiUsername' => '',
+          'apiPassword' => '',
           'testMode' => false
         );
         return $params;
