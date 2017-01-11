@@ -2,7 +2,7 @@
 
 namespace Omnipay\Cardconnect\Message;
 
-class AuthorizeRequest extends AbstractRequest
+class PurchaseRequest extends AbstractRequest
 {
     public function getData()
     {
@@ -23,7 +23,9 @@ class AuthorizeRequest extends AbstractRequest
     		'region'    => $card->getBillingState(),
     		'country'   => $card->getBillingCountry(),
     		'postal'    => $card->getBillingPostcode(),
+            'retref'    => $this->getTransactionReference(),
     		'tokenize'  => "Y",
+    		'capture'   => "Y"
     	);
         return $data;
     }
