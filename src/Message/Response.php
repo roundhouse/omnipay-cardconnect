@@ -15,16 +15,21 @@ class Response extends AbstractResponse
 {
     public function isSuccessful()
     {
-        return isset($this->data['success']) && $this->data['success'];
+        return isset($this->data['respcode']) && $this->data['respcode'] == 00;
     }
 
     public function getTransactionReference()
     {
-        return isset($this->data['reference']) ? $this->data['reference'] : null;
+        return isset($this->data['retref']) ? $this->data['retref'] : null;
+    }
+    
+    public function getCode()
+    {
+        return isset($this->data['authcode']) ? $this->data['authcode'] : null;
     }
 
     public function getMessage()
     {
-        return isset($this->data['message']) ? $this->data['message'] : null;
+        return isset($this->data['resptext']) ? $this->data['resptext'] : null;
     }
 }

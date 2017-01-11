@@ -4,13 +4,13 @@
 */
 namespace Omnipay\Cardconnect\Message;
 
-class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
+abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     /*
         TODO Update liveEndpoint value once testing is complete
     */
-    protected $liveEndpoint = 'https://fts.cardconnect.com:6443';
-    protected $testEndpoint = 'https://fts.cardconnect.com:6443';
+    protected $liveEndpoint = 'https://url.goeshere.com:6443/cardconnect/rest';
+    protected $testEndpoint = 'https://fts.cardconnect.com:6443/cardconnect/rest';
     
     /*
      ★ ★ ★ Jeremy Bueler (buelerj) *************************************
@@ -28,7 +28,7 @@ class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('apiUsername');
     }
 
-    public function getPassword()
+    public function getApiPassword()
     {
         return $this->getParameter('apiPassword');
     }
@@ -53,7 +53,7 @@ class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('apiUsername', $value);
     }
 
-    public function setPassword($value)
+    public function setApiPassword($value)
     {
         return $this->setParameter('apiPassword', $value);
     }
@@ -63,12 +63,18 @@ class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('testMode', $value);
     }
     
-    
     /*
      ★ ★ ★ Jeremy Bueler (buelerj) *************************************
          Implementation
     ********************************************************************** 
     */
+    public function sendData($data)
+    {
+        $authString = $this->getApiUsername() . ":" . $this->getApiPassword();
+        $response = $this->httpClient->put($this->getEndpoint(), null, json_encode($data))->setHeader("Authorization", "Basic " . base64_encode($authString))->setHeader("Content-Type","application/json")->send();
+        $this->response = new Response($this, $response->json());
+        return $this->response;
+    }
     
     public function getEndpointBase()
     {
