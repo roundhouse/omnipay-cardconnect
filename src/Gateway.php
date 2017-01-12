@@ -72,6 +72,16 @@ class Gateway extends AbstractGateway
         return $this->getParameter('merchantId');
     }
 
+    public function getApiHost()
+    {
+        return $this->getParameter('apiHost');
+    }
+
+    public function getApiPort()
+    {
+        return $this->getParameter('apiPort');
+    }
+
     public function getApiUsername()
     {
         return $this->getParameter('apiUsername');
@@ -101,6 +111,14 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('apiUsername', $value);
     }
+    public function setApiHost($value)
+    {
+        return $this->setParameter('apiHost', $value);
+    }
+    public function setApiPort($value)
+    {
+        return $this->setParameter('apiPort', $value);
+    }
 
     public function setApiPassword($value)
     {
@@ -112,6 +130,7 @@ class Gateway extends AbstractGateway
         return $this->setParameter('testMode', $value);
     }
     
+    
     /*
      ★ ★ ★ Jeremy Bueler (buelerj) *************************************
          
@@ -122,6 +141,8 @@ class Gateway extends AbstractGateway
     {
         $params = array(
           'merchantId' => '',
+          'apiHost' => '',
+          'apiPort' => '',
           'apiUsername' => '',
           'apiPassword' => '',
           'testMode' => false

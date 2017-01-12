@@ -6,10 +6,6 @@ namespace Omnipay\Cardconnect\Message;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
-    /*
-        TODO Update liveEndpoint value once testing is complete
-    */
-    protected $liveEndpoint = 'https://url.goeshere.com:6443/cardconnect/rest';
     protected $testEndpoint = 'https://fts.cardconnect.com:6443/cardconnect/rest';
     
     /*
@@ -21,6 +17,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getMerchantId()
     {
         return $this->getParameter('merchantId');
+    }
+
+    public function getApiHost()
+    {
+        return $this->getParameter('apiHost');
+    }
+
+    public function getApiPort()
+    {
+        return $this->getParameter('apiPort');
     }
 
     public function getApiUsername()
@@ -52,6 +58,14 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return $this->setParameter('apiUsername', $value);
     }
+    public function setApiHost($value)
+    {
+        return $this->setParameter('apiHost', $value);
+    }
+    public function setApiPort($value)
+    {
+        return $this->setParameter('apiPort', $value);
+    }
 
     public function setApiPassword($value)
     {
@@ -63,6 +77,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('testMode', $value);
     }
     
+    protected function liveEndpoint()
+    {
+        return "https://".$this->getApiHost().":".$this->getApiPort()."/cardconnect/rest";
+    }
     /*
      ★ ★ ★ Jeremy Bueler (buelerj) *************************************
          Implementation
@@ -78,6 +96,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     
     public function getEndpointBase()
     {
-        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint();
     }    
 }
