@@ -23,6 +23,9 @@ And run composer to update your dependencies:
     $ curl -s http://getcomposer.org/installer | php
     $ php composer.phar update
 
+## TODO
+Documentation & Tests - I did not write tests first ...
+
 ## Basic Usage
 
 The following gateways are provided by this package:
