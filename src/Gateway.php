@@ -144,7 +144,7 @@ class Gateway extends AbstractGateway
      * Create a purchase request.
      *
      * @param array $parameters
-     * @return \Omnipay\Cardconnect\Message\AuthorizeRequest
+     * @return \Omnipay\Cardconnect\Message\PurchaseRequest
      */
     public function purchase(array $parameters = array())
     {
@@ -152,13 +152,24 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * Create a purchase request.
+     * Create a capture request.
      *
      * @param array $parameters
-     * @return \Omnipay\Cardconnect\Message\AuthorizeRequest
+     * @return \Omnipay\Cardconnect\Message\CaptureRequest
      */
     public function capture(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Cardconnect\Message\CaptureRequest', $parameters);
+    }
+
+    /**
+     * Create a void request.
+     *
+     * @param array $parameters
+     * @return \Omnipay\Cardconnect\Message\VoidRequest
+     */
+    public function void(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Cardconnect\Message\VoidRequest', $parameters);
     }
 }
