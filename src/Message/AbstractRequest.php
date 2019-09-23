@@ -19,14 +19,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('merchantId');
     }
 
-    public function getApiHost()
+    public function getApiSite()
     {
-        return $this->getParameter('apiHost');
-    }
-
-    public function getApiPort()
-    {
-        return $this->getParameter('apiPort');
+        return $this->getParameter('apiSite');
     }
 
     public function getApiUsername()
@@ -37,11 +32,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getApiPassword()
     {
         return $this->getParameter('apiPassword');
-    }
-
-    public function getTestMode()
-    {
-        return $this->getParameter('testMode');
     }
 
     /*
@@ -58,13 +48,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return $this->setParameter('apiUsername', $value);
     }
-    public function setApiHost($value)
+    public function setApiSite($value)
     {
-        return $this->setParameter('apiHost', $value);
-    }
-    public function setApiPort($value)
-    {
-        return $this->setParameter('apiPort', $value);
+        return $this->setParameter('apiSite', $value);
     }
 
     public function setApiPassword($value)
@@ -72,30 +58,34 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('apiPassword', $value);
     }
 
-    public function setTestMode($value)
-    {
-        return $this->setParameter('testMode', $value);
-    }
-    
-    protected function liveEndpoint()
-    {
-        return "https://".$this->getApiHost().":".$this->getApiPort()."/cardconnect/rest";
-    }
-    /*
-     ★ ★ ★ Jeremy Bueler (buelerj) *************************************
-         Implementation
-    ********************************************************************** 
-    */
     public function sendData($data)
     {
-        $authString = $this->getApiUsername() . ":" . $this->getApiPassword();
-        $response = $this->httpClient->put($this->getEndpoint(), array('content-type' => 'application/json'), json_encode($data))->setHeader("Authorization", "Basic " . base64_encode($authString))->send();
-        $this->response = new Response($this, $response->json());
+        $authHeader = 'Basic ' . base64_encode($this->getApiUsername() . ":" . $this->getApiPassword());
+
+        $headers = [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => $authHeader,
+        ];
+
+        $response = $this->httpClient->request('PUT', $this->getEndpoint(), $headers, json_encode($data));
+
+        if ($response->getStatusCode() != 200) {
+            throw new \Exception($response->getReasonPhrase());
+        }
+
+        $this->response = new Response($this, json_decode($response->getBody()->getContents(), true));
+
         return $this->response;
     }
     
     public function getEndpointBase()
     {
-        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint();
-    }    
+        $site = $this->getApiSite();
+        if ($this->getTestMode()) {
+            $site .= '-uat';
+        }
+
+        return "https://{$site}.cardconnect.com/cardconnect/rest";
+    }
 }

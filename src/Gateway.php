@@ -72,14 +72,9 @@ class Gateway extends AbstractGateway
         return $this->getParameter('merchantId');
     }
 
-    public function getApiHost()
+    public function getApiSite()
     {
-        return $this->getParameter('apiHost');
-    }
-
-    public function getApiPort()
-    {
-        return $this->getParameter('apiPort');
+        return $this->getParameter('apiSite');
     }
 
     public function getApiUsername()
@@ -111,9 +106,9 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('apiUsername', $value);
     }
-    public function setApiHost($value)
+    public function setApiSite($value)
     {
-        return $this->setParameter('apiHost', $value);
+        return $this->setParameter('apiSite', $value);
     }
     public function setApiPort($value)
     {
@@ -140,12 +135,11 @@ class Gateway extends AbstractGateway
     public function getDefaultParameters()
     {
         $params = array(
-          'merchantId' => '',
-          'apiHost' => '',
-          'apiPort' => '',
-          'apiUsername' => '',
-          'apiPassword' => '',
-          'testMode' => false
+          'merchantId' => '496160873888', // As indicated on https://developer.cardconnect.com/guides/cardpointe-gateway
+          'apiSite' => 'fts',
+          'apiUsername' => 'testing',
+          'apiPassword' => 'testing123',
+          'testMode' => true
         );
         return $params;
     }
