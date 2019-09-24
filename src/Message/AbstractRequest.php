@@ -60,25 +60,20 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function sendData($data)
     {
-        $authHeader = 'Basic ' . base64_encode($this->getApiUsername() . ":" . $this->getApiPassword());
+        return $this->handleResponse($this->httpClient->request('PUT', $this->getEndpoint(), $this->getHeaders(), json_encode($data)));
+    }
 
-        $headers = [
+    public function getHeaders()
+    {
+        $authHeader = 'Basic ' . base64_encode($this->getApiUsername() . ":" . $this->getApiPassword());
+        
+        return [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
             'Authorization' => $authHeader,
         ];
-
-        $response = $this->httpClient->request('PUT', $this->getEndpoint(), $headers, json_encode($data));
-
-        if ($response->getStatusCode() != 200) {
-            throw new \Exception($response->getReasonPhrase());
-        }
-
-        $this->response = new Response($this, json_decode($response->getBody()->getContents(), true));
-
-        return $this->response;
     }
-    
+
     public function getEndpointBase()
     {
         $site = $this->getApiSite();
@@ -87,5 +82,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         }
 
         return "https://{$site}.cardconnect.com/cardconnect/rest";
+    }
+
+    public function handleResponse($response)
+    {
+        if ($response->getStatusCode() != 200) {
+            throw new \Exception($response->getReasonPhrase());
+        }
+
+        $this->response = new Response($this, json_decode($response->getBody()->getContents(), true));
+
+        return $this->response;
     }
 }

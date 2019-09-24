@@ -198,4 +198,15 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Cardconnect\Message\RefundRequest', $parameters);
     }
+
+    /**
+     * Get transaction status.
+     *
+     * @param array $parameters
+     * @return void
+     */
+    public function status(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Cardconnect\Message\InquireRequest', $parameters);
+    }
 }
