@@ -1,5 +1,5 @@
 {
-    "name": "roundhouse/omnipay-cardconnect",
+    "name": "erik-ropez/omnipay-cardconnect",
     "type": "library",
     "description": "Cardconnect driver for the Omnipay payment processing library",
     "keywords": [
