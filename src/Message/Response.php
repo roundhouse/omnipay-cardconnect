@@ -15,7 +15,7 @@ class Response extends AbstractResponse
 {
     public function isSuccessful()
     {
-        return isset($this->data['respcode']) && $this->data['respcode'] == 00;
+        return isset($this->data['respcode']) && $this->data['respcode'] == '00';
     }
 
     public function getTransactionReference()
